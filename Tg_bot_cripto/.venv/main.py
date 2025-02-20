@@ -85,7 +85,7 @@ def check_avatar_changes():
             time.sleep(5)  # Перевірка кожні 10 секунд
 
         except Exception as e:
-            print(f"🚨 Помилка при перевірці аватара: {str(e)}")
+            print(Messeger.send_telegram_message('', f"🚨 Помилка при перевірці аватара: {str(e)}"))
 
 
 def main():
