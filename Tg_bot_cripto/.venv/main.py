@@ -76,6 +76,8 @@ def check_avatar_changes():
             if image_element_link != old_image_element_link:
                 print("🔄 Виявлено зміни! Відправляю повідомлення...")
                 Messeger.send_telegram_message('', image_element_link)
+
+                # update.message.reply_text(image_element_link)
                 old_image_element_link = image_element_link
             else:
                 print("⏳ Аватар не змінився")
