@@ -55,6 +55,7 @@ def get_x_page_with_selenium(url: str) -> Optional[str]:
 
         # Використовуємо User-Agent з вашої функції
         user_agent = get_header().get("User-Agent")
+        print(user_agent)
         chrome_options.add_argument(f"user-agent={user_agent}")
 
         # Додаткові налаштування для уникнення блокування
