@@ -70,18 +70,19 @@ def get_x_page_with_selenium(url: str) -> Optional[str]:
         driver.get(url)
 
         # Чекаємо, доки сторінка завантажиться (можна додати явні очікування)
-        driver.implicitly_wait(5)  # 10 секунд очікування
+        driver.implicitly_wait(10)  # 10 секунд очікування
 
         # Отримуємо HTML
         # html = driver.page_source
         #
         # Закриваємо браузер
         # driver.quit()
-
         return driver
     except Exception as e:
         print(f"Selenium помилка: {e}")
-        return None
+        
+        raise Exception(e)
+        # return None
 
 
 def get_x_page_element_image(url: str, class_name: str):
