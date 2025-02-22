@@ -6,11 +6,13 @@ import threading
 from scraper_manager import get_x_page_element_image
 from telegram import ReplyKeyboardMarkup, KeyboardButton, Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackContext
+from datetime import datetime
 
 # Конфігурація
 ADMIN_ID = 643930225
 user_ids = set()
 old_image_element_link = 'https://pbs.twimg.com/profile_images/1822199929986510848/UYFSJ2NM.png'
+last_time_update = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # Завантажити збережені ID
 try:
@@ -44,7 +46,7 @@ async def start(update: Update, context: CallbackContext):
 async def send_curet_image(update: Update, context: CallbackContext):
     """Надсилає поточну аватарку"""
     global old_image_element_link
-    await update.message.reply_photo(photo=old_image_element_link, caption="Ось поточна аватарка")
+    await update.message.reply_photo(photo=old_image_element_link, caption=f"Ось поточна аватарка. Останій час запиту: {last_time_update}")
 
 async def show_users(update: Update, context: CallbackContext):
     user_id = update.message.from_user.id
@@ -64,6 +66,7 @@ async def handle_message(update: Update, context: CallbackContext):
 
 
 def check_avatar_changes():
+    global last_time_update
     global old_image_element_link
     while True:
         try:
@@ -82,7 +85,9 @@ def check_avatar_changes():
             else:
                 print("⏳ Аватар не змінився")
 
-            # time.sleep(5)  # Перевірка кожні 10 секунд
+            time.sleep(10)  # Перевірка кожні 10 секунд
+            last_time_update = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
 
         except Exception as e:
             print(Messeger.send_telegram_message('', f"🚨 Помилка при перевірці аватара: {str(e)}"))
