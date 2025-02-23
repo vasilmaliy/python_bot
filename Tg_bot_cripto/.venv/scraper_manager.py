@@ -81,7 +81,8 @@ def get_x_page_with_selenium(url: str) -> Optional[str]:
         return driver
     except Exception as e:
         print(f"Selenium помилка: {e}")
-        
+        driver.quit()
+        time.sleep(10)
         raise Exception(e)
         # return None
 
