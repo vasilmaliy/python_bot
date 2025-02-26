@@ -4,6 +4,7 @@ import json
 import time
 import threading
 from scraper_manager import get_x_page_element_image
+from api_handler import get_image_url
 from telegram import ReplyKeyboardMarkup, KeyboardButton, Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackContext
 from datetime import datetime
@@ -68,13 +69,20 @@ async def handle_message(update: Update, context: CallbackContext):
 def check_avatar_changes():
     global last_time_update
     global old_image_element_link
+    switching_parsing_methods = True
     while True:
         try:
             # Виконуємо синхронний скрапінг
-            image_element_link = get_x_page_element_image(
-                "https://x.com/elonmusk/photo",
-                'css-9pa8cd'
-            )
+            if switching_parsing_methods:
+                image_element_link = get_x_page_element_image(
+                    "https://x.com/elonmusk/photo",
+                    'css-9pa8cd'
+                )
+            else:
+                image_element_link = get_image_url(
+                    "https://x.com/elonmusk/photo",
+                    'css-9pa8cd'
+                )
 
             if image_element_link != old_image_element_link:
                 print("🔄 Виявлено зміни! Відправляю повідомлення...")
@@ -86,11 +94,12 @@ def check_avatar_changes():
                 print("⏳ Аватар не змінився")
 
             time.sleep(10)  # Перевірка кожні 10 секунд
-            last_time_update = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            last_time_update = f'{datetime.now().strftime("%Y-%m-%d %H:%M:%S")} метод {switching_parsing_methods}'
 
 
         except Exception as e:
-            print(Messeger.send_telegram_message('', f"🚨 Помилка при перевірці аватара: {str(e)}"))
+            print(Messeger.send_telegram_message('', f"🚨 Помилка при перевірці аватара Метод {switching_parsing_methods}: {str(e)}"))
+            switching_parsing_methods = not switching_parsing_methods
 
 
 def main():
