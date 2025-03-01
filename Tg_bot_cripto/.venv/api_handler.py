@@ -20,7 +20,7 @@ def send_scrape_request(server_url: str, target_url: str, class_name: str = 'css
             'class_name': class_name
         }
 
-        response = requests.get(server_url, params=params)
+        response = requests.get(server_url, params=params, timeout=280)
 
         if response.status_code == 200:
             return response.json().get('image_url')
@@ -38,8 +38,6 @@ def get_image_url(target_url: str, class_name: str):
     API_SERVER = f"http://{SERVER_IP}:5000/scrape"  # Замініть на реальний IP
     TARGET_URL = target_url  # Сайт для скрапінгу
     CLASS_NAME = class_name  # Необов'язковий параметр
-    
-    time.sleep(random.uniform(5, 11))
 
     result = send_scrape_request(API_SERVER, TARGET_URL, CLASS_NAME)
 
