@@ -3,7 +3,7 @@ import time
 import requests
 import random
 
-SERVER_IP = '18.199.175.66'
+SERVER_IP = '3.78.188.61'
 
 def send_scrape_request(server_url: str, target_url: str, class_name: str = 'css-9pa8cd'):
     """
@@ -38,6 +38,8 @@ def get_image_url(target_url: str, class_name: str):
     API_SERVER = f"http://{SERVER_IP}:5000/scrape"  # Замініть на реальний IP
     TARGET_URL = target_url  # Сайт для скрапінгу
     CLASS_NAME = class_name  # Необов'язковий параметр
+
+    time.sleep(random.uniform(1, 4))
 
     result = send_scrape_request(API_SERVER, TARGET_URL, CLASS_NAME)
 
