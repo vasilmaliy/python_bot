@@ -80,6 +80,7 @@ def get_x_page_with_selenium(url: str) -> Optional[str]:
         # Відкриття сторінки
         driver.get(url)
 
+        driver.set_page_load_timeout(5)
         # Чекаємо, доки сторінка завантажиться (можна додати явні очікування)
         driver.implicitly_wait(random.uniform(5, 11))  # 10 секунд очікування
 
