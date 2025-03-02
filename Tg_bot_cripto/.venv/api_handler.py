@@ -3,7 +3,7 @@ import time
 import requests
 import random
 
-SERVER_IP = '3.78.188.61'
+SERVER_IP = '3.121.200.85'
 
 def send_scrape_request(server_url: str, target_url: str, class_name: str = 'css-9pa8cd'):
     """

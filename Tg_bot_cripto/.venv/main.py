@@ -74,12 +74,12 @@ def check_avatar_changes():
         try:
             # Виконуємо синхронний скрапінг
             if switching_parsing_methods:
-                image_element_link = get_x_page_element_image(
+                image_element_link = get_image_url(
                     "https://x.com/elonmusk/photo",
                     'css-9pa8cd'
                 )
             else:
-                image_element_link = get_image_url(
+                image_element_link = get_x_page_element_image(
                     "https://x.com/elonmusk/photo",
                     'css-9pa8cd'
                 )
